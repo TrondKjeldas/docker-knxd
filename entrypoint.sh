@@ -14,6 +14,16 @@ fi
 
 chown knxd:knxd /etc/knxd/knxd.ini
 
+# Add code to find correct USB interface,
+# and patch up the config file.
+BUS=`findknxusb  | cut -s -f 2 -d : | sed 's/ //g' | sed '/^\s*$/d'`
+DEV=`findknxusb  | cut -s -f 3 -d : | sed 's/ //g' | sed '/^\s*$/d'`
+echo "bus = $BUS" >> /etc/knxd/knxd.ini
+echo "device = $DEV" >> /etc/knxd/knxd.ini
+
+# Make sure the device is accessible to the knxd user
+chown knxd:knxd /dev/bus/usb/00$BUS/00$DEV
+
 echo "Press <ctrl>-c to abort"
 su -s /bin/sh -c "knxd $ARGS" knxd
 
@@ -21,4 +31,3 @@ su -s /bin/sh -c "knxd $ARGS" knxd
 while [ true ] ; do
     sleep 5
 done
-
