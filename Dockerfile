@@ -6,7 +6,7 @@
 FROM alpine
 
 ## Choose between branches
-ARG BRANCH=v0.14
+ARG BRANCH=v0.14.17
 
 COPY entrypoint.sh /
 
@@ -23,12 +23,11 @@ RUN apk add --no-cache build-base gcc abuild binutils binutils-doc gcc-doc git l
     && apk del --no-cache build-base abuild binutils binutils-doc gcc-doc git automake autoconf libtool argp-standalone cmake cmake-doc dev86
 
 
-COPY knxd.ini /root   
-COPY knxd.ini /etc/knxd    
+COPY knxd.ini /root
+COPY knxd.ini /etc/knxd
 
 EXPOSE 3672 6720
 VOLUME /etc/knxd
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/etc/knxd/knxd.ini"]
-
