@@ -23,8 +23,7 @@ RUN apk add --no-cache build-base gcc abuild binutils binutils-doc gcc-doc git l
     && apk del --no-cache build-base abuild binutils binutils-doc gcc-doc git automake autoconf libtool argp-standalone cmake cmake-doc dev86
 
 
-COPY knxd.ini /root
-COPY knxd.ini /etc/knxd
+COPY knxd.ini.input /root
 
 EXPOSE 3672 6720
 VOLUME /etc/knxd
