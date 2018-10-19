@@ -1,26 +1,27 @@
 [A.tcp]
 server = knxd_tcp
-port = 6720
-
-[B.ipt]
-driver = ipt
-filters = C.pace
-ip-address = 192.168.2.250
-
-[C.pace]
-delay = 50
-filter = pace
+systemd-ignore = true
+debug = E.debug
 
 [E.debug]
 error-level = 0x9
-trace-mask = 0xfc
+#trace-mask = 0xffff
 
 [main]
 addr = 0.0.1
 debug = E.debug
-client-addrs=0.0.2:8
-cache = D.cache
-connections = A.tcp,B.ipt,usb
+client-addrs=0.0.2:99
+connections = server,A.tcp,usb
 background = false
+
+[server]
+debug = E.debug
+discover = true
+multicast-address = 224.0.23.12
+port = 3671
+server = ets_router
+router = router
+#tunnel = tunnel
+
 
 [usb]
